@@ -1,7 +1,7 @@
 <template>
   <div class="bg-[#ffff] flex justify-center w-full h-screen">
     <div
-      class="bg-[#f1f9f5] w-[35%] h-[55%] mt-[80px] border flex flex-col items-center px-5 cursor-pointer"
+      class="bg-[#f1f9f5] w-[100%] lg:w-[35%] lg:h-[55%] h-[100%] lg:mt-[80px] md:py-10 border flex flex-col items-center px-5 cursor-pointer"
     >
       <img
         src="https://online-grocery-store-web.vercel.app/logo.png"
@@ -25,7 +25,7 @@
         class="w-[90%] px-5 py-2 rounded-md bg-[#ffff] placeholder:text-sm placeholder:font-normal placeholder:text-gray-500 outline-black"
       />
       <button
-        @click="loginUser"
+        @click="createUser"
         class="w-[90%] px-5 py-2 rounded-md bg-green-600 my-5 text-white"
       >
         Sign in
@@ -54,39 +54,54 @@ export default {
   },
   props: {},
   methods: {
-    async loginUser() {
-      const userData = {
-        email: this.email,
-        password: this.password,
-      };
-
-      try {
-        const response = await fetch(
-          "https://backendgrocery.000webhostapp.com/api/v1/auth/local/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify(userData),
+    async createUser() {
+      await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(),
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("account created");
           }
-        );
-
-        if (response.ok) {
-          console.log("Login successful");
-        } else {
-          throw new Error("Login failed");
-        }
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
+        })
+        .catch((error) => {
+          console.log("account not created", error);
+        });
     },
+
+    // async loginUser() {
+    //   const userData = {
+    //     email: this.email,
+    //     password: this.password,
+    //   };
+    //   try {
+    //     const response = await fetch(
+    //       "https://backendgrocery.000webhostapp.com/api/v1/auth/local/login/",
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Accept: "application/json",
+    //         },
+    //         body: JSON.stringify(userData),
+    //       }
+    //     );
+
+    //     if (response.ok) {
+    //       console.log(response.json(), "Login successful");
+    //     } else {
+    //       throw new Error("Login failed");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error:", error.message);
+    //   }
+    // },
   },
-  mounted() {
-    this.loginUser();
-  },
+  // mounted() {
+  //   this.loginUser();
+  // },
 };
 </script>
-
-<style lang="scss" scoped></style>

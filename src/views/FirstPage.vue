@@ -15,9 +15,22 @@
           <h1 class="text-white p-2 font-extrabold text-xl">My Cart</h1>
           <div
             @click="handleClosingOfCartModal"
-            class="text-4xl text-white flex"
+            class="text-4xl text-white"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-10 h-10"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
           </div>
         </div>
 
@@ -55,14 +68,16 @@
         <div class="flex flex-col">
           <div class="flex justify-between font-extrabold text-xl">
             <h1>Subtotal</h1>
-            ${{ cartSubTotal() }}
+            ₦{{ cartSubTotal }}
           </div>
-          <button
-            class="bg-[#2c6335] text-white p-2 font-bold text-lg rounded-lg"
-          >
-            Checkout
-          </button>
         </div>
+        <Paystack
+          :amount="Number(cartSubTotal)"
+          :embed="true"
+          :callback="handlePaymentCallback"
+          :close="handleClose"
+          :cart-subtotal="cartSubTotal"
+        />
       </div>
     </div>
     <div class="mt-5 lg:mt-5 flex justify-center lg:gap-4">
@@ -113,9 +128,9 @@
           {{ popularProduct.name }}
         </h1>
         <div class="flex gap-5">
-          <h2 class="font-bold">${{ popularProduct.selling_price }}</h2>
+          <h2 class="font-bold">₦{{ popularProduct.selling_price }}</h2>
           <h3 class="text-gray-500 font-semibold line-through">
-            ${{ popularProduct.mrp }}
+            ₦{{ popularProduct.mrp }}
           </h3>
         </div>
 
@@ -143,7 +158,7 @@
   >
     <div
       @click.stop
-      class="w-full h-[95%] bg-white rounded-lg flex flex-row lg:h-[400px] lg:w-[55%] px-2"
+      class="w-full h-[100%] bg-white rounded-lg flex flex-row lg:h-[400px] lg:w-[55%] px-2"
     >
       <div class="flex flex-col lg:flex-row lg:gap-5 lg:w-[100%]">
         <div
@@ -164,22 +179,48 @@
           </p>
           <div class="flex gap-2 mt-3">
             <h2 class="font-extrabold text-4xl lg:text-2xl tracking-tight">
-              ${{ selectedProduct.selling_price }}
+              ₦{{ selectedProduct.selling_price }}
             </h2>
             <h3
               class="text-gray-500 text-3xl lg:text-2xl font-extrabold line-through tracking-tight flex items-center"
             >
-              ${{ selectedProduct.mrp }}
+              ₦{{ selectedProduct.mrp }}
             </h3>
           </div>
           <div class="flex gap-3 mt-7">
             <div class="border flex gap-8 px-3 items-center">
               <div class="" @click="handleDecreaseQty">
-                <i class="fa-solid fa-minus"></i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 12h14"
+                  />
+                </svg>
               </div>
               <h1 class="">{{ stateOfQuantity }}</h1>
               <div @click="handleIncreaseQty">
-                <i class="fa-solid fa-plus"></i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
               </div>
             </div>
             <h1 class="font-extrabold text-3xl">=</h1>
@@ -199,7 +240,20 @@
           class="text-gray-500 text-lg lg:ml-[137px] lg:relative mt-1 absolute right-2"
           @click="closeModal"
         >
-          <i class="fa-solid fa-xmark"></i>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
         </div>
       </div>
     </div>
@@ -211,6 +265,7 @@ import { useStore } from "@/stores/store";
 import Footer from "../components/Footer.vue";
 import Category from "../components/Category.vue";
 import NavBar from "../Layout/NavBar.vue";
+import Paystack from "../components/Paystack.vue";
 import { useRouter } from "vue-router";
 import { RouterLink } from "vue-router";
 
@@ -220,6 +275,7 @@ export default {
     Footer,
     Category,
     NavBar,
+    Paystack,
   },
   data() {
     return {
@@ -304,16 +360,9 @@ export default {
       const store = useStore();
       const { selling_price } = this.selectedProduct;
       const subtotal = selling_price * store.quantity;
-      return `$${subtotal.toFixed(2)}`;
+      return `₦${subtotal.toFixed(2)}`;
     },
-    cartSubTotal() {
-      let subtotal = 0;
-      for (const item of this.cartItems) {
-        subtotal += item.price * item.quantity;
-      }
-      console.log("Subtotal:", subtotal);
-      return subtotal.toFixed(2);
-    },
+
     addToCart() {
       const store = useStore();
       const { id, name, selling_price, images } = this.selectedProduct;
@@ -332,6 +381,15 @@ export default {
     removeFromCart(itemId) {
       const store = useStore();
       store.removeFromCart(itemId);
+    },
+    handlePaymentResponse(response) {
+      console.log("Payment response:", response);
+    },
+    handlePaymentCallback(response) {
+      console.log("Payment callback:", response);
+    },
+    handleClose() {
+      console.log("closed");
     },
   },
   mounted() {
@@ -355,6 +413,14 @@ export default {
     stateOfQuantity() {
       const store = useStore();
       return store.quantity;
+    },
+    cartSubTotal() {
+      let subtotal = 0;
+      for (const item of this.cartItems) {
+        subtotal += item.price * item.quantity;
+      }
+
+      return subtotal.toFixed(2);
     },
   },
 };

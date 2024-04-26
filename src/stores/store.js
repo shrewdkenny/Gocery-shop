@@ -48,5 +48,14 @@ export const useStore = defineStore("Store", {
       this.cartItem = this.cartItem.filter((item) => item.id !== itemId);
       this.count--;
     },
+ 
+  },
+  computed: {
+    cartSubTotal() {
+      return this.cartItem.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
   },
 });

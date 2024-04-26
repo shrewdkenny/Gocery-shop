@@ -1,7 +1,7 @@
 <template>
   <div class="bg-[#ffff] flex justify-center w-full h-screen">
     <div
-      class="bg-[#f1f9f5] w-[32%] h-[65%] mt-[80px] border flex flex-col items-center px-5 cursor-pointer"
+    class="bg-[#f1f9f5] w-[100%] lg:w-[35%] lg:h-[55%] h-[100%] lg:mt-[80px] md:py-10 border flex flex-col items-center px-5 cursor-pointer"
     >
       <img
         src="https://online-grocery-store-web.vercel.app/logo.png"
@@ -9,7 +9,7 @@
         class="w-48 mt-10"
       />
       <h1 class="mt-2 text-3xl font-extrabold">Create an Account</h1>
-      <p class="text-[#6b7280] text-sm tracking-wide">
+      <p class="text-[#6b7280] text-sm text-[13px] lg:tracking-wide">
         Enter your Email and Password to Create an account
       </p>
       <input
