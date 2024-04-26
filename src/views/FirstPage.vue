@@ -13,10 +13,7 @@
       >
         <div class="flex bg-[#2c6335] justify-between px-2">
           <h1 class="text-white p-2 font-extrabold text-xl">My Cart</h1>
-          <div
-            @click="handleClosingOfCartModal"
-            class="text-4xl text-white"
-          >
+          <div @click="handleClosingOfCartModal" class="text-4xl text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -112,17 +109,17 @@
       Our Popular Products
     </h1>
     <div
-      class="grid grid-cols-2 gap-4 justify-between lg:flex lg:flex-wrap lg:gap-5 mt-5"
+      class="grid grid-cols-1 gap-3 justify-between lg:flex lg:flex-wrap lg:gap-5 mt-5"
     >
       <div
         v-for="popularProduct in popularProducts"
         :key="popularProduct.id"
-        class="border flex flex-col lg:gap-5 gap-2 items-center lg:h-[350px] lg:w-[300px] py-1 rounded-xl hover:transition-transform hover:scale-105 hover:ease-in-out hover:duration-300 hover:shadow-lg shadow-black"
+        class="border flex flex-col lg:gap-5 gap-2 items-center lg:h-[350px] lg:w-[300px] py-4 lg:py-1 rounded-xl hover:transition-transform hover:scale-105 hover:ease-in-out hover:duration-300 hover:shadow-lg shadow-black"
       >
         <img
           :src="`https://backendgrocery.000webhostapp.com${popularProduct.images}`"
           alt=""
-          class="w-[150px] h-[150px] mt-5"
+          class="w-[150px] h-[150px] lg:mt-5"
         />
         <h1 class="font-extrabold text-sm lg:text-lg flex text-center">
           {{ popularProduct.name }}
