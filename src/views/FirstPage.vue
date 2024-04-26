@@ -276,6 +276,7 @@ import Footer from "../components/Footer.vue";
 import Category from "../components/Category.vue";
 import NavBar from "../Layout/NavBar.vue";
 import Paystack from "../components/Paystack.vue";
+import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import { RouterLink } from "vue-router";
 
@@ -374,6 +375,12 @@ export default {
     },
 
     addToCart() {
+      Swal.fire({
+        position: "bottom-end",
+        html: "<div style='font-size: 14px; font-family: sans-serif;'>Added to Cart</div>",
+        showConfirmButton: false,
+        timer: 1000,
+      });
       const store = useStore();
       const { id, name, selling_price, images } = this.selectedProduct;
       const totalPrice = this.calculateSubtotal();
@@ -389,6 +396,12 @@ export default {
       this.closeModal();
     },
     removeFromCart(itemId) {
+      Swal.fire({
+        position: "top-end",
+        html: "<div style='font-size: 14px; font-family: sans-serif;'>Removed from Cart</div>",
+        showConfirmButton: false,
+        timer: 1000,
+      });
       const store = useStore();
       store.removeFromCart(itemId);
     },
