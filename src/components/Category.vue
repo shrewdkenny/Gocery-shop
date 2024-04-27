@@ -1,21 +1,18 @@
 <template>
   <!-- Spinner -->
-  <div
-    v-if="loadingCategoryProducts"
-    class="flex justify-center items-center"
-  >
+  <div v-if="loadingCategoryProducts" class="flex justify-center items-center">
     <img src="@/assets/doublespin.gif" alt="" class="w-20" />
   </div>
   <div
     @click="selectCategory(category)"
     v-for="category in categories"
     :key="category.id"
-    class="group bg-[#f0fdf4] rounded-lg flex flex-col gap-2 items-center py-2 lg:w-[200px] hover:bg-[#4ca44b]"
+    class="group cursor-pointer bg-[#f0fdf4] rounded-lg flex flex-col justify-center items-center w-30 h-30 lg:w-[180px] lg:h-[120px] hover:bg-[#4ca44b] px-3"
   >
     <img
       :src="`https://backendgrocery.000webhostapp.com${category.icon}`"
       alt=""
-      class="transition-transform group-hover:scale-110 ease-in-out duration-300 w-20"
+      class="transition-transform group-hover:scale-110 ease-in-out duration-300 w-[60%] lg:w-[40%] lg:h-[40%]"
     />
     <h1 class="text-[#2c6335] font-semibold group-hover:text-white text-md">
       {{ category.name }}

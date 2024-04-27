@@ -6,9 +6,8 @@
         {{ selectedCategory ? selectedCategory.name : "Category Name" }}
       </h1>
     </div>
-    <div
-      class="flex flex-row mt-5 px-2 lg:px-28 lg:gap-5 gap-2 md:max-w-[100vw] overflow-x-auto"
-    >
+
+    <div class="flex lg:flex-row mt-5 lg:px-28 px-2 lg:gap-5 gap-4 overflow-x-auto">
       <Category @category-selected="updatePopularProducts" />
     </div>
 
@@ -18,16 +17,16 @@
         Our Popular Products
       </h1>
 
-      <div class="grid grid-cols-2 lg:flex lg:flex-wrap gap-4">
+      <div class="grid grid-cols-1 lg:flex lg:flex-wrap gap-4">
         <div
           v-for="product in filteredProducts"
           :key="product.id"
-          class="mt-5 border flex flex-col lg:gap-5 gap-2 items-center lg:h-[350px] lg:w-[300px] py-1 px-2 rounded-xl hover:transition-transform hover:scale-105 hover:ease-in-out hover:duration-300 hover:shadow-lg shadow-black"
+          class="mt-5 border flex flex-col lg:gap-5 items-center lg:h-[350px] lg:w-[300px] py-2 px-2 rounded-xl hover:transition-transform hover:scale-105 hover:ease-in-out hover:duration-300 hover:shadow-lg shadow-black"
         >
           <img
             :src="`https://backendgrocery.000webhostapp.com${product.images}`"
             alt=""
-            class="w-[150px] h-[150px] mt-5"
+            class="w-[150px] h-[150px] lg:mt-5"
           />
           <h1 class="font-extrabold text-sm lg:text-lg flex text-center">
             {{ product.name }}

@@ -112,7 +112,7 @@
     <!-- Shop By Category -->
 
     <div
-      class="grid grid-cols-3 lg:flex lg:flex-row mt-3 justify-between gap-4"
+      class="grid grid-cols-3 gap-4 lg:flex lg:flex-row mt-3 justify-between"
     >
       <Category @category-selected="navigateToCategoryLink" />
     </div>
