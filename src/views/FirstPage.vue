@@ -401,7 +401,7 @@ export default {
         quantity: store.quantity,
       });
       store.resetQty();
-      // this.closeModal();
+      this.closeModal();
     },
     removeFromCart(itemId) {
       Swal.fire({
