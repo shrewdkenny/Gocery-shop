@@ -131,6 +131,7 @@
       class="grid grid-cols-1 gap-3 justify-between lg:flex lg:flex-wrap lg:gap-5 mt-5"
     >
       <div
+        @click="handleModalOpening(popularProduct)"
         v-for="popularProduct in popularProducts"
         :key="popularProduct.id"
         class="border flex flex-col lg:gap-5 gap-2 items-center lg:h-[350px] lg:w-[300px] py-4 lg:py-1 rounded-xl hover:transition-transform hover:scale-105 hover:ease-in-out hover:duration-300 hover:shadow-lg shadow-black"
