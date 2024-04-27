@@ -1,4 +1,8 @@
 <template>
+  <!-- Spinner image -->
+  <div class="flex justify-center">
+    <img v-if="loadingCategoryProducts" src="@/assets/doublespin.gif" alt="" />
+  </div>
   <div
     @click="selectCategory(category)"
     v-for="category in categories"
@@ -20,7 +24,7 @@
 export default {
   name: "Test",
   emits: ["category-selected"],
-    props: ["categories"],
+  props: ["categories"],
   created() {},
   data() {
     return {
@@ -40,11 +44,16 @@ export default {
         });
     },
     selectCategory(category) {
-       this.$emit("category-selected", category);
+      this.$emit("category-selected", category);
     },
   },
   mounted() {
     this.getCategory();
+  },
+  computed: {
+    loadingCategoryProducts() {
+      return this.categories.length === 0;
+    },
   },
 };
 </script>

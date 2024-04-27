@@ -32,6 +32,7 @@
         </div>
 
         <!--products coming from modal -->
+
         <div class="flex flex-col mt-2 overflow-y-auto">
           <div
             v-for="item in cartItems"
@@ -121,6 +122,16 @@
     <h1 class="text-2xl text-[#4ca44b] font-extrabold mt-10">
       Our Popular Products
     </h1>
+    <!-- Spinner image -->
+    <div class="flex justify-center">
+      <img
+        v-if="loadingPopularProducts"
+        src="@/assets/doublespin.gif"
+        alt=""
+        class="w-20"
+      />
+    </div>
+
     <div
       class="grid grid-cols-1 gap-3 justify-between lg:flex lg:flex-wrap lg:gap-5 mt-5"
     >
@@ -330,7 +341,6 @@ export default {
           console.log("error fetching product details", error);
         });
     },
-
     imageSlideForward() {
       this.currentImageIndex =
         (this.currentImageIndex + 1) % this.images.length;
@@ -421,6 +431,10 @@ export default {
     this.modalDetails();
   },
   computed: {
+    loadingPopularProducts() {
+      return this.popularProducts.length === 0;
+    },
+
     cartModalState() {
       const store = useStore();
       this.cartItems = store.cartItem;

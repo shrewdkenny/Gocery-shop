@@ -1,7 +1,10 @@
 <template>
+  <img src="@/assets/spinner.gif" alt="">
+
+
   <div class="bg-[#ffff] flex justify-center w-full h-screen">
     <div
-    class="bg-[#f1f9f5] w-[100%] lg:w-[35%] lg:h-[55%] h-[100%] lg:mt-[80px] md:py-10 border flex flex-col items-center px-5 cursor-pointer"
+      class="bg-[#f1f9f5] w-[100%] lg:w-[35%] lg:h-[55%] h-[100%] lg:mt-[80px] md:py-10 border flex flex-col items-center px-5 cursor-pointer"
     >
       <img
         src="https://online-grocery-store-web.vercel.app/logo.png"
