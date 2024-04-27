@@ -245,7 +245,7 @@
             </h2>
           </div>
           <button
-            class="bg-[#2c6335] lg:w-[100%] w-[62%] mt-2 py-2 rounded-md text-white"
+            class="bg-[#2c6335] lg:w-[100%] w-[80%] mt-2 py-4 rounded-md text-white"
             @click="addToCart"
           >
             add to cart
@@ -400,7 +400,7 @@ export default {
         quantity: store.quantity,
       });
       store.resetQty();
-      this.closeModal();
+      // this.closeModal();
     },
     removeFromCart(itemId) {
       Swal.fire({
