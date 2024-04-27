@@ -174,7 +174,7 @@
   >
     <div
       @click.stop
-      class="w-full h-[100%] bg-white rounded-lg flex flex-row lg:h-[400px] lg:w-[55%] px-2"
+      class="w-full h-[100%] bg-white lg:rounded-lg flex flex-row lg:h-[400px] lg:w-[55%] px-2"
     >
       <div class="flex flex-col lg:flex-row lg:gap-5 lg:w-[100%]">
         <div
