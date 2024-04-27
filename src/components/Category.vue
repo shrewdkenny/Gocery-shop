@@ -1,14 +1,17 @@
 <template>
+  <!-- Spinner -->
+  <div
+    v-if="loadingCategoryProducts"
+    class="flex justify-center items-center"
+  >
+    <img src="@/assets/doublespin.gif" alt="" class="w-20" />
+  </div>
   <div
     @click="selectCategory(category)"
     v-for="category in categories"
     :key="category.id"
     class="group bg-[#f0fdf4] rounded-lg flex flex-col gap-2 items-center py-2 lg:w-[200px] hover:bg-[#4ca44b]"
   >
-    <!-- Spinner image -->
-    <div class="flex justify-center">
-    <img v-if="loadingCategoryProducts" src="@/assets/doublespin.gif" alt="" />
-  </div>
     <img
       :src="`https://backendgrocery.000webhostapp.com${category.icon}`"
       alt=""

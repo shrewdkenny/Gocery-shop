@@ -123,13 +123,8 @@
       Our Popular Products
     </h1>
     <!-- Spinner image -->
-    <div class="flex justify-center">
-      <img
-        v-if="loadingPopularProducts"
-        src="@/assets/doublespin.gif"
-        alt=""
-        class="w-20"
-      />
+    <div v-if="loadingPopularProducts" class="flex justify-center">
+      <img src="@/assets/doublespin.gif" alt="" class="w-20" />
     </div>
 
     <div
@@ -322,6 +317,7 @@ export default {
     },
 
     async getPopularProducts() {
+      this.loadingPopularProducts = true;
       await fetch("https://backendgrocery.000webhostapp.com/api/v1/products")
         .then((response) => response.json())
         .then((data) => {
@@ -329,6 +325,7 @@ export default {
         })
         .catch((error) => {
           console.log("error fetching popular products", error);
+          this.loadingPopularProducts = false;
         });
     },
     async modalDetails() {
