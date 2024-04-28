@@ -1,7 +1,7 @@
 <template>
   <!-- Spinner -->
   <div v-if="loadingCategoryProducts" class="flex justify-center items-center">
-    <img src="@/assets/doublespin.gif" alt="" class="w-20" />
+    <img src="@/assets/doublespin.gif" alt="" class="w-10" />
   </div>
   <div
     @click="selectCategory(category)"

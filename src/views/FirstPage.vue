@@ -124,7 +124,7 @@
     </h1>
     <!-- Spinner image -->
     <div v-if="loadingPopularProducts" class="flex justify-center">
-      <img src="@/assets/doublespin.gif" alt="" class="w-20" />
+      <img src="@/assets/doublespin.gif" alt="" class="w-10" />
     </div>
 
     <div
