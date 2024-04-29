@@ -1,6 +1,6 @@
 <template>
-  <NavBar />
   <div class="body lg:px-10 px-4 sm:relative">
+    <!-- <NavBar /> -->
     <!-- Cart -->
     <div
       v-if="cartModalState"
@@ -247,7 +247,7 @@
           </div>
           <button
             class="bg-[#2c6335] lg:w-[100%] w-[80%] mt-2 py-4 rounded-md text-white"
-            @click="addToCart"
+            @click="handleAddToCart"
           >
             add to cart
           </button>
@@ -279,11 +279,12 @@
 
 <script>
 import { useStore } from "@/stores/store";
+import router from "@/router";
 import Footer from "../components/Footer.vue";
 import Category from "../components/Category.vue";
-import NavBar from "../Layout/NavBar.vue";
 import Paystack from "../components/Paystack.vue";
 import Swal from "sweetalert2";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default {
   name: "Test",
@@ -316,7 +317,6 @@ export default {
     },
 
     async getPopularProducts() {
-      this.loadingPopularProducts = true;
       await fetch("https://backendgrocery.000webhostapp.com/api/v1/products")
         .then((response) => response.json())
         .then((data) => {
@@ -324,7 +324,6 @@ export default {
         })
         .catch((error) => {
           console.log("error fetching popular products", error);
-          this.loadingPopularProducts = false;
         });
     },
     async modalDetails() {
@@ -401,6 +400,16 @@ export default {
       store.resetQty();
       this.closeModal();
     },
+    checkAuthentication() {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.addToCart();
+        } else {
+          router.push("/login");
+        }
+      });
+    },
     removeFromCart(itemId) {
       Swal.fire({
         position: "top-end",
@@ -419,6 +428,10 @@ export default {
     },
     handleClose() {
       console.log("closed");
+    },
+    handleAddToCart() {
+      // Check authentication before adding to cart
+      this.checkAuthentication();
     },
   },
   mounted() {

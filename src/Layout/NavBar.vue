@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!isLoginPage && !isSignUpPage"
     class="flex gap-3 lg:flex justify-between px-2 lg:px-8 py-5 border-b-2 sticky bg-[#ffffff] cursor-pointer mt-2"
   >
     <div class="flex gap-[40px]">
@@ -131,11 +132,18 @@ export default {
   data() {
     return {
       isLoggedIn: false,
+      isLoginPage: false,
+      isSignUpPage: false,
     };
   },
 
   props: {},
   methods: {
+    checkCurrentRoute() {
+      const currentPath = this.$route.path;
+      this.isLoginPage = currentPath === "/login";
+      this.isSignUpPage = currentPath === "/signup";
+    },
     handleOpeningCartModal() {
       const openCartModal = useStore();
       openCartModal.openCartModal();
@@ -172,6 +180,12 @@ export default {
   },
   mounted() {
     this.authenTicateChange();
+  },
+  watch: {
+    $route() {
+      this.checkCurrentRoute();
+   
+    },
   },
 };
 </script>

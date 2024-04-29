@@ -1,13 +1,15 @@
 <template>
-  <!-- <NavBar /> -->
   <div class="h-full">
+    <!-- <NavBar /> -->
     <div class="bg-[#398058]">
       <h1 class="text-white font-bold text-2xl p-5 flex justify-center">
         {{ selectedCategory ? selectedCategory.name : "Category Name" }}
       </h1>
     </div>
 
-    <div class="flex lg:flex-row mt-5 lg:px-28 px-2 lg:gap-5 gap-4 overflow-x-auto">
+    <div
+      class="flex lg:flex-row mt-5 lg:px-28 px-2 lg:gap-5 gap-4 overflow-x-auto"
+    >
       <Category @category-selected="updatePopularProducts" />
     </div>
 
@@ -45,7 +47,7 @@
 
 <script>
 import Category from "@/components/Category.vue";
-import NavBar from "../Layout/NavBar.vue";
+// import NavBar from "../Layout/NavBar.vue";
 
 export default {
   name: "CategoryLink",

@@ -9,7 +9,6 @@ export const useStore = defineStore("Store", {
     quantity: 1,
     cartItem: [],
     count: 0,
-    // isLoggedIn: false,
   }),
   actions: {
     openBrowseCategory() {
