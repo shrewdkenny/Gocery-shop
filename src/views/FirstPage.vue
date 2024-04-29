@@ -284,15 +284,13 @@ import Category from "../components/Category.vue";
 import NavBar from "../Layout/NavBar.vue";
 import Paystack from "../components/Paystack.vue";
 import Swal from "sweetalert2";
-import { useRouter } from "vue-router";
-import { RouterLink } from "vue-router";
 
 export default {
   name: "Test",
   components: {
     Footer,
     Category,
-    NavBar,
+    // NavBar,
     Paystack,
   },
   data() {

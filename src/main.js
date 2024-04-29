@@ -15,10 +15,10 @@ const firebaseConfig = {
   messagingSenderId: "894549271553",
   appId: "1:894549271553:web:5ef9eb97470bc505db4c00",
 };
+initializeApp(firebaseConfig);
 
 const app = createApp(App);
-// Initialize Firebase
-initializeApp(firebaseConfig);
+
 app.use(createPinia());
 app.use(router);
 

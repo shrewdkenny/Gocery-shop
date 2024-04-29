@@ -1,5 +1,5 @@
 <template>
-  <NavBar />
+  <!-- <NavBar /> -->
   <div class="h-full">
     <div class="bg-[#398058]">
       <h1 class="text-white font-bold text-2xl p-5 flex justify-center">
@@ -51,7 +51,7 @@ export default {
   name: "CategoryLink",
   components: {
     Category,
-    NavBar,
+    // NavBar,
   },
   props: ["categoryId"],
   data() {

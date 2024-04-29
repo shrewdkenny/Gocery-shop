@@ -59,6 +59,7 @@ export default {
       try {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, this.email, this.password);
+        console.log(auth.currentUser);
         Swal.fire({
           position: "top-center",
           html: "<div style='font-size: 14px; font-family: sans-serif;'>Login successful</div>",
@@ -66,8 +67,8 @@ export default {
           timer: 1000,
         });
         router.push("/");
-        const store = useStore();
-        store.isLoggedIn = true;
+        // const store = useStore();
+        // store.isLoggedIn = true;
       } catch (error) {
         console.log(error);
       }

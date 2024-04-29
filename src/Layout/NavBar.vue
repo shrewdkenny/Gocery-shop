@@ -77,7 +77,17 @@
           {{ increaseCount.count }}
         </h1>
       </div>
-      <div class="bg-[#dcfbe7] rounded-full p-2 text-[#398058]">
+
+      <button
+        v-if="!isLoggedIn"
+        class="bg-green-700 text-white px-4 rounded-lg"
+      >
+        <RouterLink to="/login">Login</RouterLink>
+      </button>
+      <div
+        v-if="isLoggedIn"
+        class="bg-[#dcfbe7] rounded-full p-2 text-[#398058]"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -93,19 +103,22 @@
           />
         </svg>
       </div>
-
       <button
-        v-if="handleLoginStatus"
+        @click="handleSignOut"
+        v-if="isLoggedIn"
         class="bg-green-700 text-white px-4 rounded-lg"
       >
-        <RouterLink to="/login">Login</RouterLink>
+        logout
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import router from "@/router";
 import { useStore } from "@/stores/store";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
 export default {
   setup() {
     const increaseCount = useStore();
@@ -116,8 +129,11 @@ export default {
   name: "Test",
   created() {},
   data() {
-    return {};
+    return {
+      isLoggedIn: false,
+    };
   },
+
   props: {},
   methods: {
     handleOpeningCartModal() {
@@ -128,12 +144,34 @@ export default {
       const openBrowseCategory = useStore();
       openBrowseCategory.openBrowseCategory();
     },
-  },
-  computed: {
-    handleLoginStatus() {
-      const showLoginButton = useStore();
-      showLoginButton.isLoggedIn;
+    authenTicateChange() {
+      try {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            this.isLoggedIn = true;
+          } else {
+            this.isLoggedIn = false;
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
+    handleSignOut() {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          this.isLoggedIn = false;
+          router.push("/login");
+        })
+        .catch((error) => {
+          console.error("Error signing out:", error);
+        });
+    },
+  },
+  mounted() {
+    this.authenTicateChange();
   },
 };
 </script>

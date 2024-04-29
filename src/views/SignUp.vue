@@ -67,8 +67,8 @@ export default {
         await createUserWithEmailAndPassword(auth, this.email, this.password);
         console.log("account created");
         router.push("/");
-        const store = useStore();
-        store.isLoggedIn = true;
+        // const store = useStore();
+        // store.isLoggedIn = true;
       } catch (error) {
         console.log(error);
       }
