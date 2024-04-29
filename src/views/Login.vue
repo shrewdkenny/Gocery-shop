@@ -41,7 +41,9 @@
 </template>
 
 <script>
+import router from "@/router";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Swal from "sweetalert2";
 export default {
   name: "Test",
   created() {},
@@ -57,7 +59,15 @@ export default {
       try {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, this.email, this.password);
-        console.log("successfully logged in");
+        Swal.fire({
+          position: "top-center",
+          html: "<div style='font-size: 14px; font-family: sans-serif;'>Login successful</div>",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        router.push("/");
+        const store = useStore();
+        store.isLoggedIn = true;
       } catch (error) {
         console.log(error);
       }
