@@ -1,7 +1,4 @@
 <template>
-  <img src="@/assets/spinner.gif" alt="">
-
-
   <div class="bg-[#ffff] flex justify-center w-full h-screen">
     <div
       class="bg-[#f1f9f5] w-[100%] lg:w-[35%] lg:h-[55%] h-[100%] lg:mt-[80px] md:py-10 border flex flex-col items-center px-5 cursor-pointer"
@@ -42,7 +39,7 @@
       <p class="px-5">
         Already have an account?
         <span class="text-blue-500 cursor-pointer"
-          ><RouterLink to="/login">Click here to Sign In</RouterLink>
+          ><RouterLink to="/login"> Sign In</RouterLink>
         </span>
       </p>
     </div>
@@ -50,6 +47,8 @@
 </template>
 
 <script>
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 export default {
   name: "Test",
   created() {},
@@ -63,34 +62,16 @@ export default {
   props: {},
   methods: {
     async createUser() {
-      const userData = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-      };
-      await fetch(
-        "https://backendgrocery.000webhostapp.com/api/v1/auth/local/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        }
-      )
-        .then((response) => {
-          if (response.ok) {
-            console.log("account created");
-          }
-        })
-        .catch((error) => {
-          console.log("account not created", error);
-        });
+      try {
+        const auth = getAuth();
+        await createUserWithEmailAndPassword(auth, this.email, this.password);
+        console.log("account created");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
-  mounted() {
-    this.createUser();
-  },
+  computed: {},
 };
 </script>
 

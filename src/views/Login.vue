@@ -33,9 +33,7 @@
       <p class="px-5">
         Don't have an account?
         <span class="text-blue-500 cursor-pointer"
-          ><RouterLink to="/signup"
-            >Click here to create new account</RouterLink
-          >
+          ><RouterLink to="/signup"> create an account</RouterLink>
         </span>
       </p>
     </div>
@@ -43,6 +41,7 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default {
   name: "Test",
   created() {},
@@ -55,53 +54,14 @@ export default {
   props: {},
   methods: {
     async createUser() {
-      await fetch("https://jsonplaceholder.typicode.com/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("account created");
-          }
-        })
-        .catch((error) => {
-          console.log("account not created", error);
-        });
+      try {
+        const auth = getAuth();
+        await signInWithEmailAndPassword(auth, this.email, this.password);
+        console.log("successfully logged in");
+      } catch (error) {
+        console.log(error);
+      }
     },
-
-    // async loginUser() {
-    //   const userData = {
-    //     email: this.email,
-    //     password: this.password,
-    //   };
-    //   try {
-    //     const response = await fetch(
-    //       "https://backendgrocery.000webhostapp.com/api/v1/auth/local/login/",
-    //       {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Accept: "application/json",
-    //         },
-    //         body: JSON.stringify(userData),
-    //       }
-    //     );
-
-    //     if (response.ok) {
-    //       console.log(response.json(), "Login successful");
-    //     } else {
-    //       throw new Error("Login failed");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error:", error.message);
-    //   }
-    // },
   },
-  // mounted() {
-  //   this.loginUser();
-  // },
 };
 </script>

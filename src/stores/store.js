@@ -9,7 +9,6 @@ export const useStore = defineStore("Store", {
     quantity: 1,
     cartItem: [],
     count: 0,
-    // imagesLoading: false,
   }),
   actions: {
     openBrowseCategory() {
@@ -49,9 +48,6 @@ export const useStore = defineStore("Store", {
       this.cartItem = this.cartItem.filter((item) => item.id !== itemId);
       this.count--;
     },
-    // stateOfImages() {
-    //   this.imagesLoading = !this.imagesLoading;
-    // },
   },
   computed: {
     cartSubTotal() {
