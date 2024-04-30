@@ -9,8 +9,12 @@ export const useStore = defineStore("Store", {
     quantity: 1,
     cartItem: [],
     count: 0,
+    profileModal: false,
   }),
   actions: {
+    openProfileModal() {
+      this.profileModal = !this.profileModal;
+    },
     openBrowseCategory() {
       this.BrowseCategory = !this.BrowseCategory;
     },

@@ -1,4 +1,23 @@
 <template>
+  <div v-if="ProfileDetailsState" class="flex absolute z-30 right-0 top-20">
+    <div
+      class="bg-[#ffffff] flex flex-col gap-2 h-38 w-[130px] pl-2 py-2 border shadow-sm shadow-black rounded-md cursor-pointer"
+    >
+      <h1 class="font-bold text-sm pl-1">My Account</h1>
+      <div class="pl-1 py-1 hover:bg-[#e2e8f0] rounded-sm">
+        <p>Profile</p>
+      </div>
+      <div class="pl-1 py-1 hover:bg-[#e2e8f0] rounded-sm">
+        <p>My Order</p>
+      </div>
+      <div
+        @click="handleSignOut"
+        class="pl-1 py-1 hover:bg-[#e2e8f0] rounded-sm"
+      >
+        <p>Logout</p>
+      </div>
+    </div>
+  </div>
   <div
     v-if="!isLoginPage && !isSignUpPage"
     class="flex gap-3 lg:flex justify-between px-2 lg:px-8 py-5 border-b-2 sticky bg-[#ffffff] cursor-pointer mt-2"
@@ -86,6 +105,7 @@
         <RouterLink to="/login">Login</RouterLink>
       </button>
       <div
+        @click="handleProfileOpening"
         v-if="isLoggedIn"
         class="bg-[#dcfbe7] rounded-full p-2 text-[#398058]"
       >
@@ -104,13 +124,13 @@
           />
         </svg>
       </div>
-      <button
+      <!-- <button
         @click="handleSignOut"
         v-if="isLoggedIn"
         class="bg-green-700 text-white px-4 rounded-lg"
       >
         logout
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
@@ -128,6 +148,7 @@ export default {
     };
   },
   name: "Test",
+  components: {},
   created() {},
   data() {
     return {
@@ -177,14 +198,24 @@ export default {
           console.error("Error signing out:", error);
         });
     },
+
+    handleProfileOpening() {
+      const openProfile = useStore();
+      openProfile.openProfileModal();
+    },
   },
   mounted() {
     this.authenTicateChange();
   },
+  computed: {
+    ProfileDetailsState() {
+      const store = useStore();
+      return store.profileModal;
+    },
+  },
   watch: {
     $route() {
       this.checkCurrentRoute();
-   
     },
   },
 };

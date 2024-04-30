@@ -1,7 +1,6 @@
 <template>
   <div class="body lg:px-10 px-4 sm:relative">
-    <!-- <NavBar /> -->
-    <!-- Cart -->
+    <!-- Cart Modal -->
     <div
       v-if="cartModalState"
       @click="handleClosingOfCartModal"
@@ -291,7 +290,6 @@ export default {
   components: {
     Footer,
     Category,
-    // NavBar,
     Paystack,
   },
   data() {
@@ -356,6 +354,10 @@ export default {
       this.selectedProduct = product;
       store.openModal();
     },
+    // handleProfileOpening() {
+    //   const store = useStore();
+    //   store.openProfileModal();
+    // },
     closeModal() {
       const store = useStore();
       store.closeModal();
@@ -421,10 +423,10 @@ export default {
       store.removeFromCart(itemId);
     },
     handlePaymentResponse(response) {
-      console.log("Payment response:", response);
+      // console.log("Payment response:", response);
     },
     handlePaymentCallback(response) {
-      console.log("Payment callback:", response);
+      // console.log("Payment callback:", response);
     },
     handleClose() {
       console.log("closed");

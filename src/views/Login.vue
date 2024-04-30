@@ -6,7 +6,7 @@
       <img
         src="https://online-grocery-store-web.vercel.app/logo.png"
         alt=""
-        class="w-48 mt-10"
+        class="w-48"
       />
       <h1 class="mt-2 text-3xl font-extrabold">Sign In to Account</h1>
       <p class="text-[#6b7280] text-sm tracking-wide">
@@ -24,6 +24,7 @@
         placeholder="Password"
         class="w-[90%] px-5 py-2 rounded-md bg-[#ffff] placeholder:text-sm placeholder:font-normal placeholder:text-gray-500 outline-black"
       />
+      <span class="text-red-500 font-semibold text-sm">{{ errMsg }}</span>
       <button
         @click="createUser"
         class="w-[90%] px-5 py-2 rounded-md bg-green-600 my-5 text-white"
@@ -51,6 +52,7 @@ export default {
     return {
       email: "",
       password: "",
+      errMsg: "",
     };
   },
   props: {},
@@ -59,17 +61,16 @@ export default {
       try {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, this.email, this.password);
-        console.log(auth.currentUser);
+        // console.log(auth.currentUser);
         Swal.fire({
-          position: "top-center",
+          position: "top-end",
           html: "<div style='font-size: 14px; font-family: sans-serif;'>Login successful</div>",
           showConfirmButton: false,
           timer: 1000,
         });
         router.push("/");
-        // const store = useStore();
-        // store.isLoggedIn = true;
       } catch (error) {
+        this.errMsg = error.code;
         console.log(error);
       }
     },
