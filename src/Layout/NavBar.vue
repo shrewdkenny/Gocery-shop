@@ -187,12 +187,14 @@ export default {
         console.log(error);
       }
     },
+
     handleSignOut() {
       const auth = getAuth();
       signOut(auth)
         .then(() => {
           this.isLoggedIn = false;
           router.push("/login");
+          this.handleCloseProfile();
         })
         .catch((error) => {
           console.error("Error signing out:", error);
@@ -211,6 +213,10 @@ export default {
     ProfileDetailsState() {
       const store = useStore();
       return store.profileModal;
+    },
+    handleCloseProfile() {
+      const store = useStore();
+      store.closeProfileModal();
     },
   },
   watch: {

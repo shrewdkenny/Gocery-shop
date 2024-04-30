@@ -15,6 +15,9 @@ export const useStore = defineStore("Store", {
     openProfileModal() {
       this.profileModal = !this.profileModal;
     },
+    closeProfileModal() {
+      this.profileModal = false;
+    },
     openBrowseCategory() {
       this.BrowseCategory = !this.BrowseCategory;
     },
