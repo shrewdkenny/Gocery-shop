@@ -92,7 +92,7 @@
         </div>
 
         <h1
-          class="text-white bg-green-700 rounded-full font-normal text-sm flex items-center justify-center text-center h-5 w-5 absolute left-5 top-[-12px]"
+          class="text-white bg-green-700 rounded-full font-normal text-sm flex items-center justify-center text-center h-5 w-5 absolute left-6 top-[-8px]"
         >
           {{ increaseCount.count }}
         </h1>
@@ -124,13 +124,6 @@
           />
         </svg>
       </div>
-      <!-- <button
-        @click="handleSignOut"
-        v-if="isLoggedIn"
-        class="bg-green-700 text-white px-4 rounded-lg"
-      >
-        logout
-      </button> -->
     </div>
   </div>
 </template>
