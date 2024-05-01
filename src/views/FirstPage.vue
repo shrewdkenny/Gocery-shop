@@ -194,16 +194,16 @@
             {{ selectedProduct.description }}
           </p>
           <div class="flex gap-2 mt-3">
-            <h2 class="font-extrabold text-4xl lg:text-2xl tracking-tight">
+            <h2 class="font-extrabold text-xl lg:text-2xl tracking-tight">
               ₦{{ selectedProduct.selling_price }}
             </h2>
             <h3
-              class="text-gray-500 text-3xl lg:text-2xl font-extrabold line-through tracking-tight flex items-center"
+              class="text-gray-500 text-xl lg:text-2xl font-extrabold line-through tracking-tight flex items-center"
             >
               ₦{{ selectedProduct.mrp }}
             </h3>
           </div>
-          <div class="flex gap-3 mt-7">
+          <div class="flex gap-3 mt-3">
             <div class="border flex gap-8 px-3 items-center">
               <div class="" @click="handleDecreaseQty">
                 <svg
@@ -354,10 +354,7 @@ export default {
       this.selectedProduct = product;
       store.openModal();
     },
-    // handleProfileOpening() {
-    //   const store = useStore();
-    //   store.openProfileModal();
-    // },
+
     closeModal() {
       const store = useStore();
       store.closeModal();
